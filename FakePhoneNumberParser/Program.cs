@@ -9,11 +9,13 @@ using (Scanner scanner = new())
         foreach (var phoneNumber in phoneNumbers)
         {
             Console.WriteLine($"\t{phoneNumber}");
+            File.AppendAllText("phonenumbers.txt", phoneNumber + "\n");
         }
     };
 
-    scanner.Scan(new Uri("https://fakenumber.org/"), 3);
+    scanner.Scan(new Uri("https://fakenumber.org/"), 10);
 }
+
 
 class Scanner : IDisposable
 {
@@ -32,7 +34,7 @@ class Scanner : IDisposable
     {
         if (count <= 0) return;
         if (procLinks.Contains(page)) return;
-        if (level >= 4) return;
+        if (level >= 10) return;
         procLinks.Add(page);
 
         string html = webClient.DownloadString(page);
